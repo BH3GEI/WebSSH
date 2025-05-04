@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WebSSH Config</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        label { display: block; margin-top: 10px; }
+        input[type=text], input[type=number], input[type=password] {
+            width: 300px; padding: 5px; margin-top: 5px;
+        }
+        button { padding: 10px 15px; margin-top: 20px; cursor: pointer; }
+        .warning { color: red; font-weight: bold; margin-bottom: 15px; }
+        .message { color: green; margin-bottom: 15px; }
+    </style>
+</head>
+<body>
+    <h1>Configure SSH Connection</h1>
+    <p class="warning">Warning: Storing passwords here is insecure. Use SSH keys in production.</p>
+
+    {% if message %}
+        <p class="message">{{ message }}</p>
+    {% endif %}
+
+    <form method="post">
+        <label for="hostname">Hostname / IP Address:</label>
+        <input type="text" id="hostname" name="hostname" value="{{ config.hostname }}" required>
+
+        <label for="port">Port:</label>
+        <input type="number" id="port" name="port" value="{{ config.port }}" required>
+
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" value="{{ config.username }}" required>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" value="{{ config.password }}">
+        <small>(Leave blank if using key-based auth - Key auth not implemented in this simple demo)</small>
+        <br>
+
+        <button type="submit">Save Configuration</button>
+    </form>
+    <hr>
+    <p><a href="/">Go to Terminal</a> (Will auto-connect if config is saved)</p>
+</body>
+</html>
